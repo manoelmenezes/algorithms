@@ -1,5 +1,6 @@
-package matrix;
+package dp;
 
+import dp.MaximizeExpressionValue;
 import org.junit.Assert;
 import org.junit.Test;
 

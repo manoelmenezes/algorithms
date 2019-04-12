@@ -1,4 +1,4 @@
-package matrix;
+package dp;
 
 public class MaximizeExpressionValue {
 
