@@ -13,6 +13,12 @@ public class MaximizeExpressionValue {
     public int maximize() {
         int[][] min = new int[n][n];
 
+        int[] minLeft = new int[n];
+
+        for (int i = 1; i < n; i++) {
+            minLeft[i] = array[i - 1] < array[minLeft[i - 1]] ? i - 1 : minLeft[i - 1];
+        }
+
         for (int i = 0; i < n - 1; i++) {
             min[i][i + 1] = i;
         }
