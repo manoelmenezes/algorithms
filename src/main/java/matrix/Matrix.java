@@ -192,7 +192,7 @@ public final class Matrix {
     public int hashCode() {
         int[] result = {17};
 
-        result[0] = 31 * result[0] + Integer.hashCode(m);
+result[0] = 31 * result[0] + Integer.hashCode(m);
         result[0] = 31 * result[0] + Integer.hashCode(n);
 
         Arrays.stream(matrix)

@@ -14,9 +14,9 @@ import java.util.Arrays;
  *
  * For instance, in the grade example:
  *
- * Create a count array[1..10]
+ * Create a countStartingFromTopLeft array[1..10]
  *
- * count[input[i]]++;
+ * countStartingFromTopLeft[input[i]]++;
  *
  *
  */
