@@ -16,7 +16,7 @@ import java.util.Arrays;
  *
  * Create a countStartingFromTopLeft array[1..10]
  *
- * countStartingFromTopLeft[input[i]]++;
+ * countStartingFromTopLeft[input[start]]++;
  *
  *
  */

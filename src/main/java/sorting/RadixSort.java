@@ -1,10 +1,18 @@
 package sorting;
 
+import com.google.common.base.Preconditions;
+
 import java.util.Arrays;
 
 public class RadixSort {
 
     private static final int BASE = 10;
+
+    private static final int DIGITS = 4;
+
+    private static final int BITS_PER_DIGIT = 8;
+
+    private static final int BYTE = Integer.valueOf("11111111", 2);
 
     // O(n)
     private static int findMax(int[] input) {
@@ -95,12 +103,26 @@ public class RadixSort {
 
     }
 
+    public static int getDigit(int value, int digit) {
+        Preconditions.checkArgument(digit >= 1 && digit <= DIGITS, String.format("Digit must be in range [1, %d]", digit));
+
+        return (value >> (BITS_PER_DIGIT * (digit - 1))) & BYTE;
+    }
+
     public static void main(String[] args) {
         int[] input = {170, 45, 75, 90, 802, 24, 2, 66};
 
         sort(input);
 
         System.out.println(Arrays.toString(input));
+
+        for (int i = 0; i < input.length; i++) {
+            System.out.println(String.format("Bits of %d: %s", input[i], Integer.toBinaryString(input[i])));
+            for (int d = 1; d <= DIGITS; d++) {
+                System.out.println(String.format("Digit %d: %d", d, getDigit(input[i], d)));
+            }
+        }
+
     }
 
 }
