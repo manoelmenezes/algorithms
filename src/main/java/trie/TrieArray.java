@@ -1,10 +1,18 @@
 package trie;
 
-public class TrieArray implements Trie {
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class TrieArray extends AbstractTrie {
 
     public static final int ALPHABET_SIZE = 26;
 
-    private NodeArray root;
+    @Override
+    protected Node createNode() {
+        return new NodeArray();
+    }
 
     public static final class NodeArray extends Node {
 
@@ -22,6 +30,14 @@ public class TrieArray implements Trie {
                 }
             }
             return false;
+        }
+
+        @Override
+        public List<KeyValue> getChildren() {
+            return IntStream.range(0, ALPHABET_SIZE)
+                    .filter(index -> children[index] != null)
+                    .mapToObj(index -> new KeyValue((char)(index + 'a'), children[index]))
+                    .collect(Collectors.toList());
         }
 
         @Override
@@ -46,90 +62,17 @@ public class TrieArray implements Trie {
 
             return child != null;
         }
+
+        @Override
+        public long childrenSize() {
+            return Arrays.stream(children)
+                    .filter(c -> c != null)
+                    .count();
+
+        }
     }
 
-    @Override
-    public void insert(final String word) {
-        String tmp = word.toLowerCase();
 
-        if (root == null) {
-            root = new NodeArray();
-        }
-
-        NodeArray current = root;
-
-        for (char c: tmp.toCharArray()) {
-            NodeArray child = current.getChild(c);
-
-            if (child == null) {
-                child = current.addChild(c);
-            }
-
-            current = child;
-        }
-
-        current.word();
-
-    }
-
-    @Override
-    public boolean search(final String word) {
-        String tmp = word.toLowerCase();
-
-        if (root == null) {
-            return false;
-        }
-
-        NodeArray current = root;
-
-        for (char c: tmp.toCharArray()) {
-            NodeArray child = current.getChild(c);
-
-            if (child == null) {
-                return false;
-            }
-
-            current = child;
-        }
-
-        return current.isWord();
-    }
-
-    @Override
-    public boolean delete(final String word) {
-        return doDelete(root, word.toLowerCase());
-    }
-
-    private boolean doDelete(NodeArray root, String word) {
-        if (root == null) {
-            return false;
-        }
-
-        if (word.length() == 0 && root.isWord()) {
-            root.notWord();
-            return true;
-        }
-
-        if (word.length() == 0) {
-            return false;
-        }
-
-        char c = word.charAt(0);
-
-        NodeArray child = root.getChild(c);
-
-        if (child == null) {
-            return false;
-        }
-
-        boolean deleted = doDelete(child, word.substring(1));
-
-        if (deleted && !child.hasChildren()) {
-            root.removeChild(c);
-        }
-
-        return deleted;
-    }
 
 
 }

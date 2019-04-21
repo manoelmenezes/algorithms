@@ -1,9 +1,11 @@
 package trie;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-public class TrieMap implements Trie {
+public class TrieMap extends AbstractTrie {
 
     public static final class NodeMap extends Node {
 
@@ -16,6 +18,13 @@ public class TrieMap implements Trie {
         @Override
         public boolean hasChildren() {
             return !children.isEmpty();
+        }
+
+        @Override
+        public List<KeyValue> getChildren() {
+            return children.entrySet().stream()
+                    .map(e -> new KeyValue(e.getKey(), e.getValue()))
+                    .collect(Collectors.toList());
         }
 
         @Override
@@ -38,74 +47,15 @@ public class TrieMap implements Trie {
 
             return removed != null;
         }
-    }
 
-    private NodeMap root;
-
-    @Override
-    public void insert(String word) {
-        if (root == null) {
-            root = new NodeMap();
+        @Override
+        public long childrenSize() {
+            return children.size();
         }
-
-        NodeMap current = root;
-
-        for (char c: word.toCharArray()) {
-            NodeMap child = current.getChild(c);
-            if (child == null) {
-                child = current.addChild(c);
-            }
-            current = child;
-        }
-
-        current.word();
     }
 
     @Override
-    public boolean search(String word) {
-        if (root == null) {
-            return false;
-        }
-
-        NodeMap current = root;
-
-        for (char c: word.toCharArray()) {
-            NodeMap child = current.getChild(c);
-            if (child == null) {
-                return false;
-            }
-            current = child;
-        }
-
-        return current.isWord();
-    }
-
-    @Override
-    public boolean delete(String word) {
-        return doDelete(root, word);
-    }
-
-    private boolean doDelete(NodeMap root, String word) {
-        if (root == null) {
-            return false;
-        }
-
-        if (word.length() == 0) {
-            boolean isWord = root.isWord();
-            root.notWord();
-            return isWord;
-        }
-
-        char c = word.charAt(0);
-
-        NodeMap child = root.getChild(c);
-
-        boolean deleted = doDelete(child, word.substring(1));
-
-        if (deleted && !child.hasChildren()) {
-            root.removeChild(c);
-        }
-
-        return deleted;
+    protected Node createNode() {
+        return new NodeMap();
     }
 }

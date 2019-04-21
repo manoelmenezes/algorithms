@@ -3,6 +3,8 @@ package trie;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
 public class TrieArrayTest {
 
     @Test
@@ -39,5 +41,18 @@ public class TrieArrayTest {
         Assert.assertTrue(trie.delete(java));
 
         Assert.assertFalse(trie.search(java));
+    }
+
+    @Test
+    public void testGetLongestCommonPrefix() {
+        // set up
+        List<String> words = List.of("code", "codable", "coder", "coding");
+
+        // SUT
+        Trie trie = new TrieArray();
+        trie.insertAll(words);
+
+        // assert
+        Assert.assertEquals("cod", trie.getLongestCommonPrefix());
     }
 }
