@@ -7,8 +7,6 @@ import java.util.stream.IntStream;
 
 public class TrieArray extends AbstractTrie {
 
-    public static final int ALPHABET_SIZE = 26;
-
     @Override
     protected Node createNode() {
         return new NodeArray();

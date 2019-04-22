@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class TrieMap extends AbstractTrie {
 
@@ -22,8 +23,10 @@ public class TrieMap extends AbstractTrie {
 
         @Override
         public List<KeyValue> getChildren() {
-            return children.entrySet().stream()
-                    .map(e -> new KeyValue(e.getKey(), e.getValue()))
+            return IntStream.range(0, ALPHABET_SIZE)
+                    .mapToObj(index -> (char)(index + 'a'))
+                    .filter(c -> children.get(c) != null)
+                    .map(c -> new KeyValue(c, children.get(c)))
                     .collect(Collectors.toList());
         }
 

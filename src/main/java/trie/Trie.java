@@ -1,5 +1,6 @@
 package trie;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public interface Trie {
@@ -14,6 +15,34 @@ public interface Trie {
 
     default void insertAll(List<String> words) {
         words.forEach(word -> insert(word));
+    }
+
+    default List<String> getLexicographicSort() {
+        List<String> lexicographicSort = new LinkedList<>();
+
+        doGetLexicographicSort(getRoot(), new StringBuilder(), lexicographicSort);
+
+        return lexicographicSort;
+    }
+
+    private void doGetLexicographicSort(Node root, StringBuilder current, List<String> lexicographicSort) {
+       if (root != null) {
+           for (KeyValue k: root.getChildren()) {
+               char c = k.getKey();
+
+               Node n = k.getNode();
+
+               current.append(c);
+
+               if (n.isWord()) {
+                   lexicographicSort.add(current.toString());
+               }
+
+               doGetLexicographicSort(n, current, lexicographicSort);
+
+               current.setLength(current.length() - 1);
+           }
+       }
     }
 
     default String getLongestCommonPrefix() {

@@ -55,4 +55,64 @@ public class TrieArrayTest {
         // assert
         Assert.assertEquals("cod", trie.getLongestCommonPrefix());
     }
+
+    @Test
+    public void testGetLexicographicSort() {
+        // set up
+        List<String> dict = List.of(
+                "lexicographic", "sorting", "of", "a", "set", "of", "keys",
+                "can", "be", "accomplished", "with", "a", "simple", "trie",
+                "based", "algorithm", "we", "insert", "all", "keys", "in",
+                "a", "trie", "output", "all", "keys", "in", "the", "trie",
+                "by", "means", "of", "preorder", "traversal", "which",
+                "results", "in", "output", "that", "is", "in",
+                "lexicographically", "increasing", "order",
+                "preorder", "traversal", "is", "a", "kind",
+                "of", "depth", "first", "traversal"
+        );
+
+        List<String> expected = List.of("a",
+                "accomplished",
+                "algorithm",
+                "all",
+                "based",
+                "be",
+                "by",
+                "can",
+                "depth",
+                "first",
+                "in",
+                "increasing",
+                "insert",
+                "is",
+                "keys",
+                "kind",
+                "lexicographic",
+                "lexicographically",
+                "means",
+                "of",
+                "order",
+                "output",
+                "preorder",
+                "results",
+                "set",
+                "simple",
+                "sorting",
+                "that",
+                "the",
+                "traversal",
+                "trie",
+                "we",
+                "which",
+                "with");
+
+        // SUT
+        Trie trie = new TrieArray();
+        trie.insertAll(dict);
+
+        List<String> lexicographicSort = trie.getLexicographicSort();
+
+        // assert
+        Assert.assertEquals(expected, lexicographicSort);
+    }
 }

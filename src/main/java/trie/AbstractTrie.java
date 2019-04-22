@@ -2,6 +2,8 @@ package trie;
 
 public abstract class AbstractTrie implements Trie {
 
+    public static final int ALPHABET_SIZE = 26;
+
     protected Node root;
 
     protected abstract Node createNode();
