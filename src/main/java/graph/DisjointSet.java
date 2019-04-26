@@ -9,14 +9,14 @@ public class DisjointSet {
 
     private Map<Integer, Integer> rank = new HashMap<>();
 
-    private void makeSet(int[] universe) {
+    public void makeSet(int[] universe) {
         for (int i: universe) {
             parent.put(i, i);
             rank.put(i, 0);
         }
     }
 
-    private int find(int k) {
+    public int find(int k) {
         if (parent.get(k) != k) {
             parent.put(k, find(parent.get(k)));
         }
@@ -24,7 +24,7 @@ public class DisjointSet {
         return parent.get(k);
     }
 
-    private void union(int a, int b) {
+    public void union(int a, int b) {
         int x = find(a);
         int y = find(b);
 
@@ -36,7 +36,7 @@ public class DisjointSet {
         int yRank = rank.get(y);
 
         if (xRank < yRank) {
-            parent.put(x, y);   
+            parent.put(x, y);
         } else if (yRank < xRank) {
             parent.put(y, x);
         } else {
