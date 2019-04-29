@@ -37,4 +37,24 @@ public class AllPathsFinder {
         currentPath.remove(currentPath.size() - 1);
 
     }
+
+    public static void main(String[] args) {
+        int n = 5;
+        Graph graph = new Graph(n);
+        graph.add(new Vertex(1, 1), new Vertex(1,2));
+        graph.add(new Vertex(1, 2), new Vertex(1,3));
+        graph.add(new Vertex(1, 2), new Vertex(1,4));
+        graph.add(new Vertex(1, 3), new Vertex(1,5));
+        graph.add(new Vertex(1, 4), new Vertex(1,5));
+        graph.add(new Vertex(1, 1), new Vertex(1,6));
+        graph.add(new Vertex(1, 6), new Vertex(1,5));
+
+
+        AllPathsFinder allPathsFinder = new AllPathsFinder(graph);
+
+        List<List<Vertex>> paths = allPathsFinder.find(new Vertex(1, 1), new Vertex(1, 5));
+
+        System.out.println(paths);
+
+    }
 }

@@ -27,7 +27,7 @@ public class Graph {
     }
 
     public List<Vertex> getAdj(Vertex vertex) {
-        return adj.get(vertex);
+        return adj.getOrDefault(vertex, new LinkedList<>());
     }
 
 }
