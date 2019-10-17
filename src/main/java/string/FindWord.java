@@ -1,6 +1,7 @@
 package string;
 
 // Given a 2D grid of characters and a word, find all occurrences of given word in grid. A word can be matched in all 8 directions at any point.
+// https://www.geeksforgeeks.org/find-all-occurrences-of-the-word-in-a-matrix/
 
 import java.util.HashSet;
 import java.util.Set;
